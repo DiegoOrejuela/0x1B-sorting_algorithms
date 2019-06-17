@@ -3,6 +3,29 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include "sort.h"
+
+/**
+ * print_list - Prints a list of integers
+ *
+ * @list: The list to be printed
+ */
+void print_list(const listint_t *list)
+{
+	int i;
+
+	i = 0;
+	while (list)
+	{
+		if (i > 0)
+			printf(", ");
+		printf("%d", list->n);
+		++i;
+		list = list->next;
+	}
+	printf("\n");
+}
 
 /**
  * struct listint_s - Doubly linked list node
@@ -17,6 +40,7 @@ typedef struct listint_s
 	struct listint_s *prev;
 	struct listint_s *next;
 } listint_t;
+
 
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
