@@ -1,32 +1,43 @@
 #include "sort.h"
 /**
- * bubble_sort - sorts an array of integers in ascending order using the
- * Bubble sort algorithm.
+ * insertion_sort_list - sorting with insertion sort algorithm
  *
- * @array: list of elements int.
- * @size: size of array.
+ * @list: list of elements int.
  *
  * Return: nothing.
  */
+
 void insertion_sort_list(listint_t **list)
 {
-	listint_t *temp, *temp_pre, *temp_save;
+	listint_t *temp, *temp_prev, *temp_save;
+
 	for (temp = *list; (*temp).next != NULL; temp = (*temp).next)
 	{
 		if ((*(*temp).next).n < (*temp).n)
 		{
-			for (temp_prev = (*temp).next; (*temp_prev).prev != NULL; temp_prev = (*temp_prev).prev)
+			temp_prev = (*temp).next;
+			for (temp = (*temp).prev; (*temp_prev).prev != NULL; )
 			{
-				temp_save = (*tem_prev).prev; //Nodo anterior al menor
+				temp_save = (*temp_prev).prev;
 
-				(*(*temp_save).prev).next = temp_prev;
+				if ((*temp_save).prev)
+					(*(*temp_save).prev).next = temp_prev;
 				(*temp_prev).prev = (*temp_save).prev;
 
-				(*(*temp_prev).next).prev = temp_save;
+				if ((*temp_prev).next)
+					(*(*temp_prev).next).prev = temp_save;
 				(*temp_save).next = (*temp_prev).next;
 
 				(*temp_prev).next = temp_save;
 				(*temp_save).prev = temp_prev;
+
+				if ((*temp_prev).prev == NULL)
+					*list = temp_prev;
+
+				print_list(*list);
+
+				if ((*temp_prev).prev == NULL)
+					break;
 
 				if ((*(*temp_prev).prev).n < (*temp_prev).n)
 					break;
